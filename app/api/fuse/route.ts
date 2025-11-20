@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     const gemini = getGeminiClient();
 
     const result = await gemini.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-2.5-flash',
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -78,10 +78,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(fuseMix, { status: 200 });
 
-  } catch (error) {
-    console.error("[API_FUSE_ERROR]: 서버 내부 오류 발생");
-    // 🚨 오류 객체 자체를 출력하여 원인을 진단
-    console.error(error); 
+  // /api/fuse/route.ts의 catch 블록
+// ...
+  } catch (error) {
+    console.error("[API_FUSE_ERROR]: 서버 내부 오류 발생");
+    // 🚨 이 부분이 오류의 상세 정보를 담고 있습니다.
+    console.error(error); 
+    // ...
     
     // 개발 편의를 위해 오류 메시지를 자세히 반환
     return NextResponse.json(
