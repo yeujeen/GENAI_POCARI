@@ -1,5 +1,5 @@
 // app/api/fuse/route.ts
-import { gemini } from '@/lib/gemini';
+import { getGeminiClient } from '@/lib/gemini';
 import { NextRequest, NextResponse } from 'next/server';
 
 // AI가 반환할 플레이리스트 데이터의 타입 정의
@@ -52,20 +52,29 @@ export async function POST(request: NextRequest) {
     `;
 
     // 3. Gemini API 호출
-    const response = await gemini.models.generateContent({
-      model: 'gemini-2.5-flash', // 빠른 응답과 JSON 모드를 지원하는 모델 사용
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    const gemini = getGeminiClient();
+
+    const result = await gemini.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: prompt,
       config: {
-        responseMimeType: "application/json", // JSON 모드를 활성화하여 구조화된 데이터 요청
-        temperature: 0.8, // 창의적인 답변을 위해 temperature 설정
-      },
+        responseMimeType: "application/json",
+        temperature: 0.8,
+      }
     });
+
+    const responseText = await result.text;
+
     console.log("--- RAW GEMINI RESPONSE TEXT ---");
-    console.log(response.text);
+    console.log(responseText);
     console.log("----------------------------------");
 
     // 4. Gemini 응답 파싱 및 반환
-    const fuseMix: FuseMixResponse = JSON.parse(response.text);
+    if (!responseText || responseText.trim() === '') {
+      throw new Error('Gemini API로부터 빈 응답을 받았습니다.');
+    }
+
+    const fuseMix: FuseMixResponse = JSON.parse(responseText);
 
     return NextResponse.json(fuseMix, { status: 200 });
 
