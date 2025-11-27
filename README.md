@@ -72,19 +72,16 @@ git clone [https://github.com/YOUR_GITHUB_ID/genai_pocari.git](https://github.co
 cd genai_pocari
 
 2. 의존성 패키지 설치
-Bash
 npm install
 
 3. 환경 변수 설정 (필수)
 프로젝트 루트 경로에 .env.local 파일을 생성하고, Google Gemini API 키를 입력해야 합니다. (lib/gemini.ts가 이 키를 참조합니다.)
 
-코드 스니펫
 GEMINI_API_KEY=여기에_발급받은_API_키를_입력하세요
 
 API 키는 Google AI Studio에서 발급받을 수 있습니다.
 
 4. 개발 서버 실행
-Bash
 npm run dev
 
 브라우저에서 http://localhost:3000으로 접속하여 서비스를 확인합니다.
