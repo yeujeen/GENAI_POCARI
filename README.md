@@ -19,23 +19,28 @@
 
 ## ✨ 주요 기능 (Key Features)
 
-* **취향 입력 인터랙션:** 두 명의 사용자(User A, User B)가 각자 선호하는 아티스트, 장르, 분위기 키워드를 입력합니다.
-* **AI 취향 분석:** Gemini AI가 입력된 취향 데이터를 분석하여 두 사람의 음악적 공통점을 찾아냅니다.
-* **유사도 측정 (Similarity):** 두 취향이 얼마나 잘 어우러지는지를 퍼센트(%) 점수와 벤 다이어그램으로 시각화합니다.
-* **FUSE MIX 생성:** 분석된 공통 분위기에 맞는 10곡의 맞춤형 플레이리스트를 생성합니다.
-* **결과 공유:** 생성된 플레이리스트와 분석 결과를 친구와 공유할 수 있습니다.
+* **취향 입력 인터랙션**
+    * 두 명의 사용자(User A, User B)가 각자 선호하는 아티스트, 장르, 분위기 키워드를 입력합니다.
+* **AI 취향 분석**
+    * Gemini AI가 입력된 취향 데이터를 분석하여 두 사람의 음악적 공통점을 찾아냅니다.
+* **유사도 측정 (Similarity)**
+    * 두 취향이 얼마나 잘 어우러지는지를 퍼센트(%) 점수와 벤 다이어그램으로 시각화합니다.
+* **FUSE MIX 생성**
+    * 분석된 공통 분위기에 맞는 10곡의 맞춤형 플레이리스트를 생성합니다.
+* **결과 공유**
+    * 생성된 플레이리스트와 분석 결과를 친구와 공유할 수 있습니다.
 
 ---
 
 ## 📂 프로젝트 구조 및 파일 역할
 
-* **/app**
+* **`/app`**
     * `page.tsx`: 입력 화면과 결과 화면 간의 전환을 관리하는 메인 컨트롤러입니다.
     * `api/fuse/route.ts`: Gemini API와 통신하는 백엔드 로직입니다. 프롬프트 엔지니어링을 통해 정해진 JSON 규격으로 데이터를 응답받습니다.
-* **/components**
+* **`/components`**
     * `MainPage.tsx`: 사용자 A와 B의 데이터를 입력받는 UI 컴포넌트입니다.
     * `ResultsPage.tsx`: 분석 결과(유사도, 벤 다이어그램, 플레이리스트)를 시각적으로 보여주는 결과 페이지입니다.
-* **/lib**
+* **`/lib`**
     * `gemini.ts`: Google GenAI 클라이언트를 안전하게 초기화하고 환경 변수를 관리합니다.
 
 ---
@@ -48,3 +53,50 @@
 ```bash
 git clone [https://github.com/YOUR_GITHUB_ID/genai_pocari.git](https://github.com/YOUR_GITHUB_ID/genai_pocari.git)
 cd genai_pocari
+
+2. 의존성 패키지 설치
+Bash
+
+npm install
+3. 환경 변수 설정 (필수)
+프로젝트 루트 경로에 .env.local 파일을 생성하고, Google Gemini API 키를 입력해야 합니다. (lib/gemini.ts가 이 키를 참조합니다.)
+
+코드 스니펫
+
+GEMINI_API_KEY=여기에_발급받은_API_키를_입력하세요
+API 키는 Google AI Studio에서 발급받을 수 있습니다.
+
+4. 개발 서버 실행
+Bash
+
+npm run dev
+브라우저에서 http://localhost:3000으로 접속하여 서비스를 확인합니다.
+
+---
+
+📘 AI 생성 가이드: Gemini 3.0 + GitHub 연동
+이 섹션은 생성형 AI를 실제 개발 워크플로우에 통합한 방식을 설명합니다.
+
+1. 모델 선정 및 설정
+서로 다른 장르나 모호한 음악적 분위기(Vibe) 사이의 연관성을 추론하기 위해 Google Gemini 3.0 모델을 채택했습니다. 이 모델은 복잡한 맥락을 이해하고 창의적인 조합을 제안하는 데 뛰어난 성능을 보입니다.
+
+2. 프롬프트 엔지니어링 전략
+app/api/fuse/route.ts 파일에는 AI가 일관된 결과를 내도록 하는 정교한 프롬프트가 포함되어 있습니다.
+
+페르소나 부여: AI에게 "전문 음악 큐레이터"라는 역할을 부여하여 결과물의 퀄리티를 높였습니다.
+
+구조화된 출력 강제 (JSON Mode): 프론트엔드에서 데이터를 바로 사용할 수 있도록, TypeScript 인터페이스(FuseMixResponse) 형식을 프롬프트에 명시하여 엄격한 JSON 출력을 유도했습니다.
+
+TypeScript
+
+// 프롬프트에 포함된 인터페이스 예시
+interface FuseMixResponse {
+    playlistTitle: string;
+    playlistDescription: string;
+    similarity: number; // 30~85 사이의 값
+    playlist: { rank: number; title: string; artist: string }[];
+}
+3. Next.js 통합
+서버 사이드 실행: API 키 노출을 방지하기 위해 모든 AI 요청은 Next.js Route Handler(POST /api/fuse)인 서버 환경에서 실행됩니다.
+
+타입 안정성: AI가 생성한 데이터를 클라이언트로 전달하기 전, TypeScript 타입을 통해 데이터 구조를 검증하여 렌더링 오류를 방지합니다.
