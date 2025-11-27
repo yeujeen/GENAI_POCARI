@@ -43,14 +43,6 @@
 * **`/lib`**
     * `gemini.ts`: Google GenAI 클라이언트를 안전하게 초기화하고 환경 변수를 관리합니다.
 
-네, 좋은 생각입니다! 실행 전에 꼭 필요한 환경 설정(Prerequisites)을 명시해주면 다른 개발자나 미래의 본인이 프로젝트를 실행할 때 훨씬 수월합니다.
-
-말씀하신 Node.js와 Git 외에도, **코드 에디터(VS Code)**와 Google API 키 발급 준비를 미리 언급해주는 것이 좋습니다.
-
-추가하면 좋을 내용들을 포함하여 README.md의 '🚀 시작 가이드' 바로 위에 들어갈 '📋 사전 요구 사항 (Prerequisites)' 섹션을 추가했습니다.
-
-아래는 수정된 전체 README.md 내용입니다. 그대로 복사해서 사용하세요!
-
 Markdown
 
 # 🎵 Friendship Fuse (GENAI_POCARI)
