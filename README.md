@@ -43,6 +43,78 @@
 * **`/lib`**
     * `gemini.ts`: Google GenAI 클라이언트를 안전하게 초기화하고 환경 변수를 관리합니다.
 
+네, 좋은 생각입니다! 실행 전에 꼭 필요한 환경 설정(Prerequisites)을 명시해주면 다른 개발자나 미래의 본인이 프로젝트를 실행할 때 훨씬 수월합니다.
+
+말씀하신 Node.js와 Git 외에도, **코드 에디터(VS Code)**와 Google API 키 발급 준비를 미리 언급해주는 것이 좋습니다.
+
+추가하면 좋을 내용들을 포함하여 README.md의 '🚀 시작 가이드' 바로 위에 들어갈 '📋 사전 요구 사항 (Prerequisites)' 섹션을 추가했습니다.
+
+아래는 수정된 전체 README.md 내용입니다. 그대로 복사해서 사용하세요!
+
+Markdown
+
+# 🎵 Friendship Fuse (GENAI_POCARI)
+
+**Friendship Fuse**는 Google Gemini AI를 활용하여 두 사용자의 음악 취향을 분석하고, 두 사람 모두가 만족할 수 있는 최적의 공동 플레이리스트(FUSE MIX)를 생성해 주는 소셜 음악 서비스입니다.
+
+이 프로젝트는 음악 취향의 교집합을 시각화하고, AI 큐레이션을 통해 사용자 간의 연결고리를 찾아줍니다.
+
+---
+
+## 🛠️ 기술 스택 (Tech Stack)
+
+이 프로젝트는 최신 웹 기술과 생성형 AI 모델을 기반으로 구축되었습니다.
+
+* **Core Framework:** Next.js 16 (App Router), React 19, TypeScript
+* **Artificial Intelligence:** Google Gemini 3.0 API (`@google/genai` SDK 활용)
+* **Styling & UI:** Tailwind CSS v4, Lucide React, v0.dev (Generative UI)
+* **Version Control:** Git & GitHub
+
+---
+
+## ✨ 주요 기능 (Key Features)
+
+* **취향 입력 인터랙션:** 두 명의 사용자(User A, User B)가 각자 선호하는 아티스트, 장르, 분위기 키워드를 입력합니다.
+* **AI 취향 분석:** Gemini AI가 입력된 취향 데이터를 분석하여 두 사람의 음악적 공통점을 찾아냅니다.
+* **유사도 측정 (Similarity):** 두 취향이 얼마나 잘 어우러지는지를 퍼센트(%) 점수와 벤 다이어그램으로 시각화합니다.
+* **FUSE MIX 생성:** 분석된 공통 분위기에 맞는 10곡의 맞춤형 플레이리스트를 생성합니다.
+* **결과 공유:** 생성된 플레이리스트와 분석 결과를 친구와 공유할 수 있습니다.
+
+---
+
+## 📂 프로젝트 구조 및 파일 역할
+
+* **`/app`**
+    * `page.tsx`: 입력 화면과 결과 화면 간의 전환을 관리하는 메인 컨트롤러입니다.
+    * `api/fuse/route.ts`: Gemini API와 통신하는 백엔드 로직입니다. 프롬프트 엔지니어링을 통해 정해진 JSON 규격으로 데이터를 응답받습니다.
+* **`/components`**
+    * `MainPage.tsx`: 사용자 A와 B의 데이터를 입력받는 UI 컴포넌트입니다.
+    * `ResultsPage.tsx`: 분석 결과(유사도, 벤 다이어그램, 플레이리스트)를 시각적으로 보여주는 결과 페이지입니다.
+* **`/lib`**
+    * `gemini.ts`: Google GenAI 클라이언트를 안전하게 초기화하고 환경 변수를 관리합니다.
+
+---
+
+## 📋 사전 요구 사항 (Prerequisites)
+
+프로젝트를 실행하기 전에 다음 도구들이 설치되어 있어야 합니다.
+
+1.  **Node.js & npm (필수):**
+    * 이 프로젝트는 Next.js 기반이므로 Node.js 환경이 필요합니다.
+    * [Node.js 공식 홈페이지](https://nodejs.org/)에서 **LTS 버전**을 다운로드하여 설치해주세요.
+    * 설치 확인: 터미널에 `node -v`와 `npm -v`를 입력하여 버전이 나오면 성공입니다.
+
+2.  **Git (필수):**
+    * 소스 코드를 다운로드(Clone)하고 버전을 관리하기 위해 필요합니다.
+    * [Git 공식 홈페이지](https://git-scm.com/)에서 설치해주세요. (Windows 사용자는 Git Bash가 함께 설치됩니다.)
+
+3.  **Google Gemini API 키 (필수):**
+    * AI 기능을 사용하기 위해 API 키가 필요합니다.
+    * [Google AI Studio](https://aistudio.google.com/)에서 무료로 키를 발급받으세요.
+
+4.  **Visual Studio Code (권장):**
+    * 코드를 수정하고 실행하기 가장 편리한 에디터입니다.
+
 ---
 
 ## 🚀 시작 가이드 (Getting Started)
