@@ -68,7 +68,9 @@ Bash
 npm run dev
 브라우저에서 http://localhost:3000으로 접속하여 확인합니다.
 
-📂 폴더 구조 (Folder Structure)
+## 📂 폴더 구조 (Folder Structure)
+
+```bash
 project/
 ├── app/
 │   ├── api/fuse/route.ts    # AI 분석 백엔드 API (Prompt Engineering)
