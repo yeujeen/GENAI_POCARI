@@ -53,7 +53,6 @@ cd Friendship-Fuse-APP/project
 
 ```
 ### 2. 패키지 설치 (Install)
-Bash
 npm install
 
 ### 3. 환경 변수 설정 (Environment Setup)
@@ -63,7 +62,6 @@ npm install
 GEMINI_API_KEY=your_google_api_key_here
 
 ### 4. 실행 (Run)
-Bash
 npm run dev
 브라우저에서 http://localhost:3000으로 접속하여 확인합니다.
 
